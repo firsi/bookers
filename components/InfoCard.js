@@ -1,6 +1,6 @@
 import { theme } from '../theme/theme';
 
-const InfoCard = ({title, content}) => {
+const InfoCard = ({title, content, inverse}) => {
     return (
         <div>
             <span className="title">{title}</span>
@@ -8,7 +8,8 @@ const InfoCard = ({title, content}) => {
             <style jsx>{`
                 div{
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: ${inverse ? 'column-reverse' : 'column'};
+
                     justify-content: space-between;
                     margin-bottom: 1em;
                 }

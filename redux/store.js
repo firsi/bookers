@@ -15,3 +15,7 @@ const reducers = combineReducers({
 export const store = createStore( reducers, applyMiddleware(thunk));
 
 export default store;
+
+// export const initStore = (initialState = {}) => {
+//     return createStore(reducers, initialState, applyMiddleware(thunk));
+//   };

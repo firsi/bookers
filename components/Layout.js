@@ -1,5 +1,3 @@
-import { Provider } from 'react-redux';
-import { store } from '../redux/store';
 import Navbar from "./Navbar";
 import { theme } from '../theme/theme';
 
@@ -7,13 +5,10 @@ const Layout = ({children}) => {
 
     return(
         <div>
-            <Provider store={store}>
                 <Navbar />
                 <main>
                     {children}
-                </main>
-            </Provider>
-            
+                </main>        
             <style jsx>{`
                 main{
                     padding: ${theme.spacing.small};

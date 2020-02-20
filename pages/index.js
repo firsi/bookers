@@ -3,6 +3,7 @@ import Layout from "../components/Layout.js"
 import Category from "../components/containers/Category.js"
 import ImageCard from "../components/ImageCard";
 import ReadingNowList from '../components/ReadingNowList';
+import { connect } from 'react-redux';
 
 
 const Index = ({readingNowBooks}) => {

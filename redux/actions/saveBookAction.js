@@ -1,5 +1,11 @@
 import { db } from '../../util/base';
-import { SAVE_BOOK_BEGIN, SAVE_BOOK_SUCCES, SAVE_BOOK_FAILURE } from '../types';
+import { SAVE_BOOK_BEGIN, 
+        SAVE_BOOK_SUCCES, 
+        SAVE_BOOK_FAILURE, 
+        FETCH_SAVED_BOOK_BEGIN,
+        FETCH_SAVED_BOOK_SUCCES,
+        FETCH_SAVED_BOOK_FAILURE
+    } from '../types';
 import { defaultCover } from '../../util/constants';
 import  Router from 'next/router';
 
@@ -61,6 +67,66 @@ export const saveBookSUCCESS = () => {
 export const saveBookFailure = (error) => {
     return {
         type: SAVE_BOOK_FAILURE,
+        payload: {error}
+    }
+}
+
+export const fetchSavedBooks = () => dispatch => {
+    dispatch(fetchSavedBooksBegin());
+
+    let savedBooks = [];
+    let booksCount = {
+        read: 0,
+        reading: 0,
+        toRead: 0
+    };
+
+    db.collection('reading_list')
+      .get()
+      .then(snapshot => {
+          snapshot.forEach(doc => {
+                const data = {
+                    id: doc.id,
+                    bookInfo: doc.data()
+                }
+
+                if(data.bookInfo.status === 'Reading now'){
+                    booksCount.reading = booksCount.reading + 1;
+                }
+                else if(data.bookInfo.status === 'Not started'){
+                    booksCount.toRead = booksCount.toRead + 1;
+                }
+                else {
+                    booksCount.read = booksCount.read + 1;
+                }
+               savedBooks.push(data);
+          })
+          dispatch(fetchSavedBooksSuccess(savedBooks, booksCount));
+      })
+      .catch(error => {
+          console.log(error);
+          dispatch(fetchSavedBooksFailure(error))
+      })
+
+}
+
+export const fetchSavedBooksBegin = () => {
+    return {
+        type: FETCH_SAVED_BOOK_BEGIN
+    }
+}
+
+export const fetchSavedBooksSuccess = (savedBooks, booksCount) => {
+    return {
+        type: FETCH_SAVED_BOOK_SUCCES,
+        payload: {savedBooks},
+        booksInfo: {booksCount}
+    }
+}
+
+export const fetchSavedBooksFailure = (error) => {
+    return {
+        type: FETCH_SAVED_BOOK_FAILURE,
         payload: {error}
     }
 }
