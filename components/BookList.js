@@ -15,7 +15,7 @@ const BookList = ({books, loading}) => {
         <div>
             {     
                 loading ? <CircularProgress /> :  
-                (Object.entries(books).length === 0 ?
+                (!books ?
                     <h1>Sorry....This book has not been added yet</h1>
                 
                 : books.map(book => 
