@@ -1,0 +1,1 @@
+export const defaultCover = 'https://advancepetproduct.com/wp-content/uploads/2019/04/no-image.png';
