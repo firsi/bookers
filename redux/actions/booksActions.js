@@ -11,7 +11,7 @@ export const fetchBooks = (searchterm) => async (dispatch) => {
 
     return data.then(books => {
             dispatch(fetchBooksSuccess(books));
-            Router.push('/search');
+            Router.push(`/search/${searchterm}`);
             })
             .catch(error => {
                 console.log(error);

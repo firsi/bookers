@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Router  from 'next/router';
 import { connect } from 'react-redux';
 import { fetchBooks } from '../redux/actions/booksActions';
 import { theme } from '../theme/theme';
@@ -6,10 +7,12 @@ import SearchBar from './SearchBar';
 import Menu from './Menu';
 
 
+
 const Navbar = ({fetchBooks}) => {
 
     const handleSearch = (event) => {
-        fetchBooks(event.target.value);   
+        // fetchBooks(event.target.value);   
+        Router.push(`/search/${event.target.value}`);
     }
 
     return(

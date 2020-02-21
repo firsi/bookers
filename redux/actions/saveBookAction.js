@@ -4,11 +4,16 @@ import { SAVE_BOOK_BEGIN,
         SAVE_BOOK_FAILURE, 
         FETCH_SAVED_BOOK_BEGIN,
         FETCH_SAVED_BOOK_SUCCES,
-        FETCH_SAVED_BOOK_FAILURE
+        FETCH_SAVED_BOOK_FAILURE,
+        UPDATE_BOOK_STATUS_BEGIN,
+        UPDATE_BOOK_STATUS_SUCCESS,
+        UPDATE_BOOK_STATUS_FAILURE
     } from '../types';
 import { defaultCover } from '../../util/constants';
 import  Router from 'next/router';
 
+
+//Save a book in my library
 export const saveBook = (book, readingStatus) => dispatch => {
     console.log("saveBook action",book)
     dispatch(saveBookBegin());
@@ -71,6 +76,7 @@ export const saveBookFailure = (error) => {
     }
 }
 
+//Fetch Book saved in my library
 export const fetchSavedBooks = () => dispatch => {
     dispatch(fetchSavedBooksBegin());
 
@@ -127,6 +133,44 @@ export const fetchSavedBooksSuccess = (savedBooks, booksCount) => {
 export const fetchSavedBooksFailure = (error) => {
     return {
         type: FETCH_SAVED_BOOK_FAILURE,
+        payload: {error}
+    }
+}
+
+//Update Book Status
+export const updateBookStatus = (id, status) => dispatch => {
+    dispatch(updateBookStatusBegin());
+
+    db.collection('reading_list')
+    .doc(id)
+    .update({
+        status
+    })
+    .then(() => {
+        dispatch(updateBookStatusSuccess());
+        fetchSavedBooks();
+    })
+    .catch(error => {
+        console.log(error);
+        dispatch(updateBookStatusFailure(error))
+    })
+}
+
+const updateBookStatusBegin = () => {
+    return {
+        type: UPDATE_BOOK_STATUS_BEGIN
+    }
+}
+
+const updateBookStatusSuccess = () => {
+    return {
+        type: UPDATE_BOOK_STATUS_SUCCESS
+    }
+}
+
+const updateBookStatusFailure = (error) => {
+    return {
+        type: UPDATE_BOOK_STATUS_FAILURE,
         payload: {error}
     }
 }

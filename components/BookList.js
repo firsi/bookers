@@ -1,24 +1,16 @@
-import { connect } from 'react-redux';
-import SideImageCard from './SideImageCard';
 import Router  from 'next/router';
-import { CircularProgress } from '@material-ui/core';
 import SearchSideCard from './SearchSideCard';
 
-const BookList = ({books, loading}) => {
+const BookList = ({books}) => {
 
     const handleClick = (id) => {
-        console.log(id)
         Router.push(`/book/${id}`)
     }
-    console.log(books);
+    
     return (
         <div>
-            {     
-                loading ? <CircularProgress /> :  
-                (!books ?
-                    <h1>Sorry....This book has not been added yet</h1>
-                
-                : books.map(book => 
+            {      
+                books.map(book => 
                    <SearchSideCard 
                     key={book.id}
                     imageUrl={book?.volumeInfo?.imageLinks?.thumbnail}
@@ -28,17 +20,12 @@ const BookList = ({books, loading}) => {
                     author={book?.volumeInfo?.authors}
                     handleClick = {() => handleClick(book.id)}
                    />
-                ))
+                )
             }
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        loading: state.books.loading,
-        books: state.books.books.items
-    }
-}
 
-export default connect(mapStateToProps)(BookList);
+
+export default BookList;

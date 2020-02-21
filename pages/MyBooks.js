@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchSavedBooks } from '../redux/actions/saveBookAction';
 import Layout from '../components/Layout';
 import InfoCard  from '../components/InfoCard';
 import { theme } from '../theme/theme';
+import BookDataTable from '../components/BookDataTable';
 
 const MyBooks = ({fetchSavedBooks, books, booksCount}) =>  {
 
@@ -18,7 +19,7 @@ const MyBooks = ({fetchSavedBooks, books, booksCount}) =>  {
                 <InfoCard title={'Books Started'} content={booksCount.reading} inverse={true}/>
                 <InfoCard title={'Books To Read'} content={booksCount.toRead} inverse={true}/>
             </div>
-            <h1>My Books</h1>
+            <BookDataTable data={books} />
             <style jsx>{`
                 .summup-container{
                     display: flex;

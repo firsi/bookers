@@ -1,6 +1,6 @@
 export const setStatusColor = (status) => {
     switch (status){
-        case 'To read': 
+        case 'Not started': 
             return '#960606';
 
         case 'Reading now': 
