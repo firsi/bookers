@@ -4,6 +4,7 @@ import { saveBook } from "../redux/actions/saveBookAction";
 import BaseModal from "./Modal";
 import { Button } from "@material-ui/core";
 import { theme } from "../theme/theme";
+import { READING_NOW, NOT_STARTED } from "../util/constants";
 
 
 const BookModal = ({book, isBookAdded, saveBook}) => {
@@ -40,7 +41,7 @@ const BookModal = ({book, isBookAdded, saveBook}) => {
                     className={classes.containedPrimary} 
                     variant="contained"
                     color="primary"
-                    onClick={() => handleClick('now')}
+                    onClick={() => handleClick(READING_NOW)}
                     >
                     Reading now
                 </Button>
@@ -48,7 +49,7 @@ const BookModal = ({book, isBookAdded, saveBook}) => {
                     className={classes.outlinedPrimary} 
                     variant="outlined"
                     color="primary"
-                    onClick={() => handleClick('later')}
+                    onClick={() => handleClick(NOT_STARTED)}
                     >
                     Read Later
                 </Button>

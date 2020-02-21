@@ -1,3 +1,4 @@
+import  Router from 'next/router';
 import { db } from '../../util/base';
 import { SAVE_BOOK_BEGIN, 
         SAVE_BOOK_SUCCES, 
@@ -9,25 +10,25 @@ import { SAVE_BOOK_BEGIN,
         UPDATE_BOOK_STATUS_SUCCESS,
         UPDATE_BOOK_STATUS_FAILURE
     } from '../types';
-import { defaultCover } from '../../util/constants';
-import  Router from 'next/router';
+import { defaultCover, NOT_STARTED, READING_NOW, FINISHED } from '../../util/constants';
+
 
 
 //Save a book in my library
-export const saveBook = (book, readingStatus) => dispatch => {
+export const saveBook = (book, status) => dispatch => {
     console.log("saveBook action",book)
     dispatch(saveBookBegin());
-    const bookStatus = setBookStatus(readingStatus);
+    // const bookStatus = setBookStatus(readingStatus);
+    const statusDates = setStatusDate(status);
     return db.collection('reading_list')
              .doc(book.id)
             .set({
                 title: book.volumeInfo.title,
                 authors: book.volumeInfo.authors || 'Unknown',
                 coverUrl: book.volumeInfo.imageLinks.smallThumbnail || defaultCover,
-                status: bookStatus.status,
+                status: status,
                 addedAt: new Date(),
-                startedAt: bookStatus.startedAt,
-                finishedAd: '---'
+                ...statusDates
             })
             .then(() => {
                 dispatch(saveBookSUCCESS());
@@ -141,11 +142,13 @@ export const fetchSavedBooksFailure = (error) => {
 //Update Book Status
 export const updateBookStatus = (id, status) => dispatch => {
     dispatch(updateBookStatusBegin());
-
+    const statusDates = setStatusDate(status);
+    console.log(statusDates);
     db.collection('reading_list')
     .doc(id)
     .update({
-        status
+        status,
+        ...statusDates
     })
     .then(() => {
         dispatch(updateBookStatusSuccess());
@@ -173,5 +176,24 @@ const updateBookStatusFailure = (error) => {
     return {
         type: UPDATE_BOOK_STATUS_FAILURE,
         payload: {error}
+    }
+}
+
+const setStatusDate = (status) => {
+    switch (status){
+        case NOT_STARTED:
+            return{
+                startedAt: '---',
+                finishedAt: '---'
+            };
+        case READING_NOW:
+            return{
+                startedAt: new Date(),
+                finishedAt: '---'
+            };
+        case FINISHED:
+            return{
+                finishedAt: new Date(),
+            };
     }
 }
