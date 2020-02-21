@@ -11,11 +11,11 @@ const SearchBar = ({handleSearch}) => {
     return(
         <>
             <input 
-                type="text" 
+                type="search" 
                 onChange={handleChange}
                 value={value} 
                 placeholder="What book do you want to read ?"
-                aria-label="Enter your search term"
+                aria-label="Search"
                 onKeyDown={(event) => event.keyCode==13 && handleSearch(event)}
                 />
             <style jsx>{`

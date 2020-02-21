@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch';
 import Layout from "../../components/Layout";
 import BookList from "../../components/BookList";
 import { API } from '../../util/API';
@@ -17,7 +18,8 @@ const Search = ({books}) => {
 
 
 Search.getInitialProps = async ({query}) => {
-    const result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query.id}&key=${API}`)
+    const result = 
+        await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query.id}&key=${API}`);
     const data = result.json();
 
     return data.then(books => 
