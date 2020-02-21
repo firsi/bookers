@@ -5,10 +5,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Rating from '@material-ui/lab/Rating';
 import { theme } from '../theme/theme';
+import { defaultCover } from '../util/constants';
 
 const useStyles = makeStyles({
     root: {
       maxWidth: 160,
+      minWidth: 145,
+      maxHeight: 220,
+      overflow: 'hidden',
+      marginRight: theme.spacing.small,
       backgroundColor: "transparent",
       boxShadow: "none",
     },
@@ -25,30 +30,35 @@ const useStyles = makeStyles({
             marginTop: "1em",
             marginBottom: "0.5em"
         }
+    },
+    title: {
+      margin: 0,
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      color: theme.color.primary_dark,
+      marginTop: '1em',
+      marginBottom: '0.5em'
     }
   });
 
-const ImageCard = ({title, rating, imageAlt, imageUrl}) => {
+const ImageCard = ({title, authors, imageAlt, imageUrl=defaultCover, handleClick}) => {
     const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={handleClick}>
         <CardMedia
           className={classes.media}
           image={imageUrl}
           title={imageAlt}
         />
         <CardContent className={classes.content}>
-          <h5 >
-          {title}
-          </h5>
-          <Rating
-          name="Book Rating"
-          value={rating}
+          <h3 className={classes.title} >
+            {title}
+          </h3>
+          <small>{authors}</small>
           
-          readOnly
-          />
         </CardContent>
       </CardActionArea>
     </Card>

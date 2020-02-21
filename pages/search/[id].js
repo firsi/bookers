@@ -25,9 +25,9 @@ Search.getInitialProps = async ({query}) => {
     return data.then(books => 
         ({books: books.items})
     
-    )
-            .catch(error => {
-                console.log(error);
-            })
+        )
+        .catch(error => {
+            console.log(error);
+        })
 }
 export default Search;

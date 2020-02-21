@@ -3,15 +3,14 @@ import { API } from '../../util/API';
 
 import { FETCH_BOOKS_BEGIN, FETCH_BOOKS_SUCCES, FETCH_BOOKS_FAILURE } from '../types';
 
-export const fetchBooks = (searchterm) => async (dispatch) => {
+export const fetchBooks = (keyword) => async (dispatch) => {
     dispatch(fetchBooksBegin());
 
-    const result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchterm}&key=${API}`)
+    const result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${keyword}&key=${API}`)
     const data = result.json();
 
     return data.then(books => {
             dispatch(fetchBooksSuccess(books));
-            Router.push(`/search/${searchterm}`);
             })
             .catch(error => {
                 console.log(error);
@@ -40,4 +39,5 @@ export const  fetchBooksError = errors => {
         payload: {errors}
     }
 }
+
 

@@ -1,24 +1,35 @@
-import { db } from '../util/base'
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import Layout from "../components/Layout.js"
 import Category from "../components/containers/Category.js"
-import ImageCard from "../components/ImageCard";
 import ReadingNowList from '../components/ReadingNowList';
-import { connect } from 'react-redux';
+import ImageCardList from '../components/ImageCardList.js';
+import { CategoryHorizontal } from '../components/containers/CategoryHorizontal';
+import { fetchBooks } from '../redux/actions/booksActions.js';
+import { db } from '../util/base';
+import LoaderSkeleton from '../components/LoaderSkeleton.js';
 
 
-const Index = ({readingNowBooks}) => {
-
+const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
+    
+    useEffect(() => {
+        fetchBooks('computer programming');
+    },[])
     return (
         <Layout>
-            <div>
-                {/* <Category title={"Trending"}>
-                    <ImageCard />
-                </Category> */}
-                <Category title={"Reading now"}>
-                    <ReadingNowList readingNowBooks={readingNowBooks} />
-                </Category> 
-                
-            </div>
+        {console.log(books)}
+            {loading ?
+                <LoaderSkeleton />
+                : <div>
+                    <CategoryHorizontal title={"Computer Programming"}>
+                        <ImageCardList books={books} />
+                    </CategoryHorizontal>
+                    <Category title={"Reading now"}>
+                        <ReadingNowList readingNowBooks={readingNowBooks} />
+                    </Category> 
+                    
+                  </div>
+            }
         </Layout>
     )
 }
@@ -39,5 +50,11 @@ Index.getInitialProps = async () => {
             .catch(error => console.log(error));
 }
 
-
-export default Index;
+const mapActionToProps = {
+    fetchBooks,
+}
+const mapStateToProps = state => ({
+    books: state.books.books.items,
+    loading: state.books.loading,
+})
+export default connect(mapStateToProps, mapActionToProps)(Index);
