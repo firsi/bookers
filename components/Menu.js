@@ -4,7 +4,7 @@ import { theme } from '../theme/theme';
 const Menu = () => {
     return(
         <ul>
-            <li><Link href="/mybooks"><a>My Books</a></Link></li>
+            <li><Link href="/MyBooks"><a>My Books</a></Link></li>
             <li><Link href="/"><a>My Stats</a></Link></li>
             <li><Link href="/"><a>My Planner</a></Link></li>
 

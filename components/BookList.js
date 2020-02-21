@@ -10,7 +10,9 @@ const BookList = ({books}) => {
     return (
         <div>
             {      
-                books.map(book => 
+                books.length === 0 ? 
+                    <h2>Sorry! The ressource you requested doesn't exists</h2>
+                : books.map(book => 
                    <SearchSideCard 
                     key={book.id}
                     imageUrl={book?.volumeInfo?.imageLinks?.thumbnail}
