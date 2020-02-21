@@ -9,7 +9,7 @@ const SearchBar = ({handleSearch}) => {
     }
 
     return(
-        <>
+        <div>
             <input 
                 type="search" 
                 onChange={handleChange}
@@ -32,7 +32,7 @@ const SearchBar = ({handleSearch}) => {
                 }
             `}
             </style>
-        </>
+        </div>
     )
 }
 

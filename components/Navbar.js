@@ -1,18 +1,15 @@
 import Link from 'next/link';
 import Router  from 'next/router';
-import { connect } from 'react-redux';
-import { fetchBooks } from '../redux/actions/booksActions';
 import { theme } from '../theme/theme';
-import SearchBar from './SearchBar';
+import SimpleSearchBar from './SimpleSearchBar';
 import Menu from './Menu';
 
 
 
-const Navbar = ({fetchBooks}) => {
+const Navbar = () => {
 
-    const handleSearch = (event) => {
-        // fetchBooks(event.target.value);   
-        Router.push(`/search/${event.target.value}`);
+    const handleSearch = (value) => {
+        Router.push(`/search/${value}`);
     }
 
     return(
@@ -21,8 +18,8 @@ const Navbar = ({fetchBooks}) => {
                 <Link href="/"><a>Bookers</a></Link>
             </div>
             <Menu />
-            <SearchBar handleSearch={handleSearch}/>
-
+            <SimpleSearchBar handleSearch={handleSearch}/>
+            
             <style jsx>{`
                 nav{
                     display: flex;
@@ -48,8 +45,6 @@ const Navbar = ({fetchBooks}) => {
     )
 }
 
-const matchActionToProps =  {
-        fetchBooks,
-}
 
-export default connect(null, matchActionToProps)(Navbar);
+
+export default Navbar;

@@ -31,7 +31,7 @@ export const saveBook = (book, readingStatus) => dispatch => {
             })
             .then(() => {
                 dispatch(saveBookSUCCESS());
-                Router.push('/mybooks');
+                Router.push('/MyBooks');
             })
             .catch((error) => {
                 dispatch(saveBookFailure(error));
@@ -88,6 +88,7 @@ export const fetchSavedBooks = () => dispatch => {
     };
 
     db.collection('reading_list')
+      .orderBy('addedAt', 'desc')
       .get()
       .then(snapshot => {
           snapshot.forEach(doc => {
