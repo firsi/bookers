@@ -10,16 +10,17 @@ const scale = [{
   min: 0,
   max: 1,
 }];
-const LinePlot = ({data}) => {
-    
-    return(
-      <Chart forceFit height={300} data={data} scale={scale}>
-        <Tooltip />
-        <Axis />
-        <Line position="label*value" />
-        
-      </Chart>
-    )
+const LinePlot = ({data}) => {   
+    if(process.browser){
+      return(
+        <Chart forceFit height={300} data={data} scale={scale}>
+          <Tooltip />
+          <Axis />
+          <Line position="label*value" />
+          
+        </Chart>
+      )
+    }
 }
 
 export default LinePlot;

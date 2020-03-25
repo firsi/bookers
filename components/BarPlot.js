@@ -7,14 +7,17 @@ const scale = [{
 
 const BarPlot = ({data}) => {
   
-    return (
-      <Chart forceFit height={300} data={data} scale={scale}>
-        <Tooltip />
-        <Axis />
-        <Bar position="label*value" />
-      </Chart>
-    );
+      return (
+        <Chart forceFit height={300} data={data} scale={scale}>
+          <Tooltip />
+          <Axis />
+          <Bar position="label*value" />
+        </Chart>
+      );
+    
 }
 
 export default BarPlot;
+
+
 
