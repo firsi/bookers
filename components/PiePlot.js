@@ -7,7 +7,7 @@ import { Chart, Tooltip, Axis,  Coord, Pie, Legend } from 'viser-react';
     formatter: '.0%',
   }];
   
-export const PiePlot = ({data}) => {
+const PiePlot = ({data}) => {
     
     return(
       <Chart forceFit height={300} data={data} scale={scale}>
@@ -26,3 +26,5 @@ export const PiePlot = ({data}) => {
       </Chart>
     )
 }
+
+export default PiePlot;

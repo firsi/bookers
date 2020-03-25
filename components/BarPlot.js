@@ -5,7 +5,7 @@ const scale = [{
   tickInterval: 2,
 }];
 
-export const BarPlot = ({data}) => {
+const BarPlot = ({data}) => {
   
     return (
       <Chart forceFit height={300} data={data} scale={scale}>
@@ -16,4 +16,5 @@ export const BarPlot = ({data}) => {
     );
 }
 
+export default BarPlot;
 

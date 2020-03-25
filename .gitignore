@@ -1,5 +1,6 @@
 node_modules
 .next
 
-
+@antv
+MyStats.js
 .now
