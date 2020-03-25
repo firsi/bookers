@@ -27,6 +27,7 @@ const useStyles = makeStyles({
     },
     title: {
         color: theme.color.primary_very_light,
+        cursor:"pointer"
     },
     row: {
         borderBottom: `1px solid ${theme.color.secondary}`,

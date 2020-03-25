@@ -11,7 +11,12 @@ const Layout = ({children}) => {
                 </main>        
             <style jsx>{`
                 main{
-                    padding: ${theme.spacing.small};
+                    padding: ${theme.spacing.small} ;
+                }
+                @media screen and (min-width: 600px){
+                    main{
+                        padding: ${theme.spacing.small} ${theme.spacing.medium};
+                    }
                 }
             `}
             </style>

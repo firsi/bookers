@@ -13,7 +13,8 @@ const useStyles = makeStyles(() => ({
     maxHeight: props => props.height || 100,
     padding:  props => props.rootPadding || '1em',
     marginBottom: '1em',
-  
+    marginRight: '1em',
+    flex: 1,
   },
   details: {
     display: 'flex',

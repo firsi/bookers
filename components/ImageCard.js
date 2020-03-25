@@ -3,7 +3,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Rating from '@material-ui/lab/Rating';
 import { theme } from '../theme/theme';
 import { defaultCover } from '../util/constants';
 
@@ -14,6 +13,7 @@ const useStyles = makeStyles({
       maxHeight: 220,
       overflow: 'hidden',
       marginRight: theme.spacing.small,
+      marginBottom: theme.spacing.medium,
       backgroundColor: "transparent",
       boxShadow: "none",
     },

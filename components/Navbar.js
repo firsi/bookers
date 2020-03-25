@@ -3,6 +3,7 @@ import Router  from 'next/router';
 import { theme } from '../theme/theme';
 import SimpleSearchBar from './SimpleSearchBar';
 import Menu from './Menu';
+import { Grid } from '@material-ui/core';
 
 
 
@@ -14,11 +15,19 @@ const Navbar = () => {
 
     return(
         <nav>
-            <div className="logo">
-                <Link href="/"><a>Bookers</a></Link>
-            </div>
-            <Menu />
-            <SimpleSearchBar handleSearch={handleSearch}/>
+            <Grid container >
+                <Grid item xs={12} md={2}>
+                    <div className="logo">
+                        <Link href="/"><a>Bookers</a></Link>
+                    </div>
+                </Grid>
+                <Grid item xs={12} md={5}>
+                    <Menu />
+                </Grid>
+                <Grid item xs={12} md={5}>
+                    <SimpleSearchBar handleSearch={handleSearch}/>
+                </Grid>  
+            </Grid>
             
             <style jsx>{`
                 nav{

@@ -37,7 +37,7 @@ const BookDetails = ({book}) => {
     
     return (
         <Paper className={classes.root}>
-            <h2 className={classes.title}>Details</h2>
+            <h3 className={classes.title}>Details</h3>
             <div className={classes.content}>
                 <div className={classes.column}>
                     <InfoCard title="Paperback" content={pages} />

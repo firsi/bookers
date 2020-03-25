@@ -27,7 +27,7 @@ const BookDescription = ({book}) => {
     const classes = useStyles();
     return (
         <div className={classes.description}>
-            <h1>{book.volumeInfo.title}</h1>
+            <h2>{book.volumeInfo.title}</h2>
             <div className="author"><span>{book.volumeInfo.authors}</span></div>
             <p>{book.volumeInfo.description}</p>
             

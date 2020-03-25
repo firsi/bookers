@@ -8,6 +8,9 @@ import { CategoryHorizontal } from '../components/containers/CategoryHorizontal'
 import { fetchBooks } from '../redux/actions/booksActions.js';
 import { db } from '../util/base';
 import LoaderSkeleton from '../components/LoaderSkeleton.js';
+import { Header } from '../components/Header.js';
+import { Features } from '../components/Features.js';
+import { Tracking } from '../components/Tracking.js';
 
 
 const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
@@ -18,18 +21,20 @@ const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
     return (
         <Layout>
         {console.log(books)}
+            <Header />
+            <Features />
             {loading ?
                 <LoaderSkeleton />
                 : <div>
-                    <CategoryHorizontal title={"Computer Programming"}>
+                    <CategoryHorizontal title={"Computer Programming Books"}>
                         <ImageCardList books={books} />
-                    </CategoryHorizontal>
-                    <Category title={"Reading now"}>
-                        <ReadingNowList readingNowBooks={readingNowBooks} />
-                    </Category> 
-                    
+                    </CategoryHorizontal> 
                   </div>
             }
+            <Tracking />
+            <Category title={"Reading now"}>
+                <ReadingNowList readingNowBooks={readingNowBooks} />
+            </Category>
         </Layout>
     )
 }

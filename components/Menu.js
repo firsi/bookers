@@ -5,7 +5,7 @@ const Menu = () => {
     return(
         <ul>
             <li><Link href="/MyBooks"><a>My Books</a></Link></li>
-            <li><Link href="/"><a>My Stats</a></Link></li>
+            <li><Link href="/MyStats"><a>My Stats</a></Link></li>
             <li><Link href="/"><a>My Planner</a></Link></li>
 
             <style jsx>{`
@@ -25,6 +25,11 @@ const Menu = () => {
                     text-decoration: none;
                     color: inherit;
                     font-size: 0.9em;
+                }
+                @media screen and (min-width: 960px){
+                    ul{
+                        margin: 0;
+                    }
                 }
             `}
             </style>

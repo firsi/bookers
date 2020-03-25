@@ -8,6 +8,7 @@ import { theme } from "../../theme/theme"
 import  BookModal  from '../../components/AddBookModal'
 import { defaultCover } from '../../util/constants'
 import { db } from '../../util/base'
+import { Grid } from '@material-ui/core'
 
 
 const Book = ({book, isBookAdded}) => {
@@ -40,20 +41,24 @@ const Book = ({book, isBookAdded}) => {
     
     return (
        <Layout>
-            <div>
+            <Grid container justify='center'>
                 {/* <h1>Book Details</h1> */}
-                <div className={classes.bookCover}>
-                    <img 
-                        src={imageLink} 
-                        alt={book?.title}
-                    />
-                </div>
-                <div className="book-info">
-                    <BookDescription book={book}/>
-                    <BookDetails book={book}/>   
-                    <BookModal isBookAdded={isBookAdded} book={book} />
-                </div>
-            </div>
+                <Grid item xm={12} md={4}>
+                    <div className={classes.bookCover}>
+                        <img 
+                            src={imageLink} 
+                            alt={book?.title}
+                        />
+                    </div>
+                </Grid>
+                <Grid item xm={12} md={5}>
+                    <div className="book-info">
+                        <BookDescription book={book}/>
+                        <BookDetails book={book}/>   
+                        <BookModal isBookAdded={isBookAdded} book={book} />
+                    </div>
+                </Grid>
+            </Grid>
        </Layout>
     )
 }
