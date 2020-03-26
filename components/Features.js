@@ -8,8 +8,11 @@ import { Grid, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles(mtheme => ({
     section: {
         backgroundColor: '#979add',
-        padding: mtheme.spacing(8),
+        padding: mtheme.spacing(4),
         marginBottom: mtheme.spacing(8),
+        [mtheme.breakpoints.up('md')]: {
+            padding: mtheme.spacing(8),
+        },
     }
 }))
 export const Features = () => {
@@ -17,7 +20,7 @@ export const Features = () => {
     const classes = useStyles();
     return (
         <section className={classes.section} >
-            <Grid container spacing={6}>
+            <Grid container spacing={6} alignContent='center'>
                 <Grid item xs={12} md={4} >
                     <RoundImageCard 
                         title="Totally free"

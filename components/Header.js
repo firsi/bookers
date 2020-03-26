@@ -2,6 +2,7 @@ import { Grid, Button, makeStyles } from "@material-ui/core"
 
 import ReadingSvg from "../assets/book_reading.svg";
 import { theme } from "../theme/theme";
+import  Router  from "next/router";
 
 const useStyles = makeStyles((mtheme) => ({
     root: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles((mtheme) => ({
             height: 'auto',
           },
           [mtheme.breakpoints.up('lg')]: {
-            width:'auto',
+            width:'900px',
             height: 'auto',
           },
     }
@@ -49,7 +50,14 @@ export const Header = () => {
             <Grid item xs={12} sm={4} >
                 <h1 className={classes.title}>Your Book Organizer</h1>
                 <p>Keep Track of your book reading habits, sign up for free to get instant access!</p>
-                <Button className={classes.containedPrimary} size="large" variant="contained" color="primary">Sign up</Button>
+                <Button 
+                    className={classes.containedPrimary} 
+                    size="large" variant="contained" 
+                    color="primary"
+                    onClick={() => Router.push('/login')}
+                    >
+                        Sign up
+                    </Button>
             </Grid>
             <Grid item xs={12} sm={8}>
                 <ReadingSvg className={classes.readingSvg}/>

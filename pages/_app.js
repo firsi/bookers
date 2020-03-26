@@ -3,6 +3,7 @@ import {Provider} from 'react-redux';
 import React from 'react';
 import withRedux from "next-redux-wrapper";
 import store from '../redux/store';
+import { AuthProvider } from '../context/Auth-context';
 
 class MyApp extends App {
 
@@ -19,7 +20,9 @@ class MyApp extends App {
 
         return (
             <Provider store={store}>
-                <Component {...pageProps}/>
+                <AuthProvider>
+                    <Component {...pageProps}/>
+                </AuthProvider>
             </Provider>
         );
     }

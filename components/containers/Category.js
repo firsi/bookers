@@ -1,5 +1,5 @@
 import { theme } from '../../theme/theme';
-import { GridList, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(mtheme => ({
     title: {
@@ -11,9 +11,7 @@ const Category = ({children, title}) => {
     return(
         <div>
             <h1 className={classes.title}>{title}</h1>
-            <GridList  spacing={4} cols={2} >
                 {children}
-            </GridList>
             <style jsx>{`
                 color: ${theme.color.primary_dark};
                 font-size: ${theme.font.small};

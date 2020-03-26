@@ -15,6 +15,7 @@ import { theme } from '../theme/theme';
 
 import { Grid, Paper } from "@material-ui/core";
 import DotLoader from "react-spinners/DotLoader";
+import { authMiddleware } from "../util/authMiddleware";
 const LinePlot =  dynamic(() => import("../components/LinePlot"));
 const PiePlot = dynamic(() => import("../components/PiePlot"))
 const BarPlot = dynamic(() => import("../components/BarPlot"))
@@ -154,6 +155,12 @@ const mapPropsToState = (state) => ({
 
 const mapActionToProps = {
     fetchSavedBooks
+}
+
+MyStats.getInitialProps = async (ctx) => {
+    const authenticated = authMiddleware(ctx);
+
+    return {authenticated}
 }
 
 export default connect(mapPropsToState, mapActionToProps)(MyStats);

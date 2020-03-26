@@ -11,17 +11,19 @@ import LoaderSkeleton from '../components/LoaderSkeleton.js';
 import { Header } from '../components/Header.js';
 import { Features } from '../components/Features.js';
 import { Tracking } from '../components/Tracking.js';
+import { useAuthenticatedValue } from '../context/Auth-context.js';
 
 
 const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
-    
+    const {authenticated} = useAuthenticatedValue();
     useEffect(() => {
         fetchBooks('computer programming');
     },[])
+    
     return (
         <Layout>
         {console.log(books)}
-            <Header />
+            {!authenticated && <Header />}
             <Features />
             {loading ?
                 <LoaderSkeleton />
@@ -32,9 +34,10 @@ const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
                   </div>
             }
             <Tracking />
-            <Category title={"Reading now"}>
-                <ReadingNowList readingNowBooks={readingNowBooks} />
-            </Category>
+            {authenticated && 
+                <Category title={"Reading now"}>
+                    <ReadingNowList readingNowBooks={readingNowBooks} />
+                </Category>}
         </Layout>
     )
 }

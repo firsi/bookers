@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     maxWidth: 345,
     backgroundColor: 'transparent',
     boxShadow: 'none',
+    margin: 'auto',
   },
   image: {
       width: 'auto',

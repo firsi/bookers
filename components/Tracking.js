@@ -7,6 +7,9 @@ const useStyles = makeStyles(mtheme => ({
         backgroundColor: '#e2e2e8',
         padding: mtheme.spacing(6),
     },
+    imageContainer: {
+        textAlign: 'center',
+    },
     dataSvg: {
         width:'330px',
         height: 'auto',
@@ -32,7 +35,7 @@ export const Tracking = () => {
     return (
         <section>
             <Grid container className={classes.root} justify='center' alignItems='center'>
-                <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={8} className={classes.imageContainer}>
                     <DataSvg className={classes.dataSvg}/>
                 </Grid>
                 <Grid item xs={12} md={4} >
