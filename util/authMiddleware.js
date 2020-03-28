@@ -15,13 +15,13 @@ export const authMiddleware = ctx => {
   console.log(authenticated)
 
   if (ctx.req && !authenticated) {
-    ctx.res.writeHead(302, { Location: '/login' });
+    ctx.res.writeHead(302, { Location: '/Login' });
     ctx.res.end();
     return
-  }
+  } 
 
   if (!authenticated) {
-    Router.push('/login');
+    Router.push('/Login');
   }
 
   return authenticated;

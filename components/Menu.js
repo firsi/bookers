@@ -25,7 +25,7 @@ const Menu = () => {
                     <li><Link href="/"><a>My Planner</a></Link></li>
                     <li ><a onClick={() => logout()}>Logout</a></li>
                 </>
-                : <li><Link href="/login"><a>Login</a></Link></li> 
+                : <li><Link href="/Login"><a>Login</a></Link></li> 
             }
 
             <style jsx>{`

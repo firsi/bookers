@@ -157,11 +157,11 @@ const mapActionToProps = {
     fetchSavedBooks
 }
 
-MyStats.getInitialProps = async (ctx) => {
-    const authenticated = authMiddleware(ctx);
+// MyStats.getInitialProps = async (ctx) => {
+//     const authenticated = authMiddleware(ctx);
 
-    return {authenticated}
-}
+//     return {authenticated}
+// }
 
 export default connect(mapPropsToState, mapActionToProps)(MyStats);
 
