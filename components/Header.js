@@ -54,7 +54,7 @@ export const Header = () => {
                     className={classes.containedPrimary} 
                     size="large" variant="contained" 
                     color="primary"
-                    onClick={() => Router.push('/login')}
+                    onClick={() => Router.push('/Login')}
                     >
                         Sign up
                     </Button>
