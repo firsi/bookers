@@ -4,8 +4,8 @@ import { Grid } from '@material-ui/core';
 
 const BookList = ({books}) => {
 
-    const handleClick = (id) => {
-        Router.push(`/book/${id}`)
+    const handleClick = (id, authors) => {
+        Router.push({pathname:`/book/${id}`, query:{authors}})
     }
     
     return (
@@ -23,7 +23,7 @@ const BookList = ({books}) => {
                         title={book?.volumeInfo?.title}
                         category={book?.volumeInfo?.categories}
                         author={book?.volumeInfo?.authors}
-                        handleClick = {() => handleClick(book.id)}
+                        handleClick = {() => handleClick(book.id, book?.volumeInfo?.authors)}
                     />
                    </Grid>
                 )

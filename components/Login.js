@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { theme } from "../theme/theme";
 import { auth } from "../util/base";
 import  Router  from "next/router";
-import firebaseErrorsHandler from "../util/firebaseErrors";
+import firebaseErrorsHandler from "../util/firebaseErrors"; 
 
 const useStyles = makeStyles(mtheme => ({
     root: {
@@ -28,27 +28,27 @@ export const Login = () => {
         <Formik
             initialValues={{ email: '', password: '' }}
             validationSchema={Yup.object({
-        email: Yup.string()
-          .email('Invalid email address')
-          .required('Required'),
-        password: Yup.string()
-          .min(8, 'Must be 8 characters or more')
-          .required('Required'),
-      })}
-      onSubmit={(values, { setSubmitting, setFieldError }) => {    
-          setSubmitting(false);
-          auth.signInWithEmailAndPassword(values.email, values.password)
-            .then(() => {
-                console.log('User signed in successfully');
-                Router.push('/MyStats')
-            })
-            .catch(error => {
-                console.log(error);
-                const serverErrors = firebaseErrorsHandler(error);
-                setFieldError(serverErrors.name, serverErrors.message);
-            })
-      }}
-        >
+                email: Yup.string()
+                .email('Invalid email address')
+                .required('Required'),
+                password: Yup.string()
+                .min(8, 'Must be 8 characters or more')
+                .required('Required'),
+            })}
+            onSubmit={(values, { setSubmitting, setFieldError }) => {    
+                setSubmitting(false);
+                auth.signInWithEmailAndPassword(values.email, values.password)
+                    .then(() => {
+                        console.log('User signed in successfully');
+                        Router.push('/mystats')
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        const serverErrors = firebaseErrorsHandler(error);
+                        setFieldError(serverErrors.name, serverErrors.message);
+                    })
+            }}
+            >
         { formik => (
             <form onSubmit={formik.handleSubmit}>
                 <TextField 

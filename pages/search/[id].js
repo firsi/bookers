@@ -10,7 +10,7 @@ const Search = ({books, keywords}) => {
         <Layout>
             <div>
                 <h2>Search results for {keywords}...</h2>
-                <BookList books={books}/>
+                <BookList books={books} />
             </div>
         </Layout>
     )
@@ -25,7 +25,7 @@ Search.getInitialProps = async ({query}) => {
 
     return data.then(books => 
         ({books: books.items,
-          keywords: query.id,  
+          keywords: query.id
         })
     
         )

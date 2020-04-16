@@ -20,12 +20,12 @@ const Menu = () => {
             {
                 authenticated ? 
                 <>
-                    <li><Link href="/MyBooks"><a>My Books</a></Link></li>
-                    <li><Link href="/MyStats"><a>My Stats</a></Link></li>
+                    <li><Link href="/mybooks"><a>My Books</a></Link></li>
+                    <li><Link href="/mystats"><a>My Stats</a></Link></li>
                     <li><Link href="/"><a>My Planner</a></Link></li>
                     <li ><a onClick={() => logout()}>Logout</a></li>
                 </>
-                : <li><Link href="/Login"><a>Login</a></Link></li> 
+                : <li><Link href="/login_signup"><a>Login</a></Link></li> 
             }
 
             <style jsx>{`

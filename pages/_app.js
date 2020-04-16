@@ -4,12 +4,33 @@ import React from 'react';
 import withRedux from "next-redux-wrapper";
 import store from '../redux/store';
 import { AuthProvider } from '../context/Auth-context';
+import { auth } from '../util/base';
+import redirectTo from '../util/redirectTo';
 
 class MyApp extends App {
-
+ 
     static async getInitialProps({Component, ctx}) {
+
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
+        auth.onAuthStateChanged(user => {
+            if(user){ 
+                if(ctx.pathname == "/login_signup") {
+                    //shouldn't show the login page is we are already logged in
+                    console.log('user is connected')
+                     redirectTo('/', { res: ctx.res, status: 301 });  }
+                  
+            }
+            else{
+                if(ctx.pathname == "/login_signup" || ctx.pathname == "/") return;
+                //if we are on any other page, redirect to the login page
+                else redirectTo('/login_signup', { res: ctx.res, status: 301 })
+                console.log('he is not')
+            }
+        })
+
+        
+        
         //Anything returned here can be accessed by the client
         return {pageProps: pageProps};
     }

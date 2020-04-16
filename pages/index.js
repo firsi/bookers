@@ -11,11 +11,10 @@ import LoaderSkeleton from '../components/LoaderSkeleton.js';
 import { Header } from '../components/Header.js';
 import { Features } from '../components/Features.js';
 import { Tracking } from '../components/Tracking.js';
-import { useAuthenticatedValue } from '../context/Auth-context.js';
 
 
-const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
-    const {authenticated} = useAuthenticatedValue();
+
+const Index = ({fetchBooks, books, loading}) => {
     useEffect(() => {
         fetchBooks('computer programming');
     },[])
@@ -23,7 +22,7 @@ const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
     return (
         <Layout>
         {console.log(books)}
-            {!authenticated && <Header />}
+            <Header />
             <Features />
             {loading ?
                 <LoaderSkeleton />
@@ -34,29 +33,11 @@ const Index = ({readingNowBooks,fetchBooks, books, loading}) => {
                   </div>
             }
             <Tracking />
-            {authenticated && 
-                <Category title={"Reading now"}>
-                    <ReadingNowList readingNowBooks={readingNowBooks} />
-                </Category>}
         </Layout>
     )
 }
 
-Index.getInitialProps = async () => {
-    return db.collection('reading_list')
-            .where('status', '==', 'Reading now')
-            .get()
-            .then(data => {
-                let readingNowBooks = [];
-                data.forEach(doc => {
-                    readingNowBooks.push(doc.data())
-                })
-                return {
-                    readingNowBooks
-                }
-            })
-            .catch(error => console.log(error));
-}
+
 
 const mapActionToProps = {
     fetchBooks,

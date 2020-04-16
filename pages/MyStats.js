@@ -2,20 +2,18 @@ import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import Layout from "../components/Layout";
 import InfoCard from "../components/InfoCard";
-
-// Redux
 import { connect } from 'react-redux';
 import { fetchSavedBooks } from "../redux/actions/saveBookAction";
-
 import { date_diff_indays, computePercent } from "../util/helpers";
 import { MONTHS } from "../util/constants";
 import { makeStyles } from '@material-ui/core/styles';
 import { theme } from '../theme/theme';
-
-
 import { Grid, Paper } from "@material-ui/core";
 import DotLoader from "react-spinners/DotLoader";
 import { authMiddleware } from "../util/authMiddleware";
+import { NoData } from "../components/NoData";
+import ReadingNowList from "../components/ReadingNowList";
+import { auth } from "../util/base";
 const LinePlot =  dynamic(() => import("../components/LinePlot"));
 const PiePlot = dynamic(() => import("../components/PiePlot"))
 const BarPlot = dynamic(() => import("../components/BarPlot"))
@@ -92,16 +90,25 @@ const MyStats = ({books, booksCount, loading, fetchSavedBooks}) => {
         return data;
     }
 
+    // Sort Books the user is reading now   
+    const setReadingNowBooks = () => {
+        return books.filter(book => book.bookInfo.status === 'Reading now')
+                    .slice(0,4);
+    }
     
     const classes = useStyles();
     return(
         <Layout>
+            {books.length == 0 ? <NoData />
+            : <>
             <div className={classes.summupContainer}>
                 <InfoCard title={'Books Read'} content={booksCount.read} inverse/>
                 <InfoCard title={'Books Started'} content={booksCount.reading} inverse/>
                 <InfoCard title={'Books To Read'} content={booksCount.toRead} inverse/>
             </div>
-
+            <h4>Reading now</h4>
+            <ReadingNowList readingNowBooks={setReadingNowBooks()} />
+            
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
                     <h4>Average day to complete a book</h4>
@@ -142,6 +149,7 @@ const MyStats = ({books, booksCount, loading, fetchSavedBooks}) => {
                 </Grid>
                 
             </Grid>
+             </>}
         </Layout>
     )
 }
@@ -157,11 +165,25 @@ const mapActionToProps = {
     fetchSavedBooks
 }
 
-// MyStats.getInitialProps = async (ctx) => {
-//     const authenticated = authMiddleware(ctx);
-
-//     return {authenticated}
-// }
+export async function getServerSideProps({ res }) {
+    auth.onAuthStateChanged(user => {
+        if(user){
+            console.log(`${user} signed in successfully`);
+        }
+        else{
+            res.writeHead(302, {
+                Location: "/login_signup",
+              });
+              // don't forget the res.end to redirect correctly
+              res.end();
+        }
+    })
+  
+    return {
+      props: {},
+    };
+  }
+  
 
 export default connect(mapPropsToState, mapActionToProps)(MyStats);
 

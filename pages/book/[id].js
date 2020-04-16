@@ -9,41 +9,55 @@ import  BookModal  from '../../components/AddBookModal'
 import { defaultCover } from '../../util/constants'
 import { db } from '../../util/base'
 import { Grid } from '@material-ui/core'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchBooks } from '../../redux/actions/booksActions'
+import BookList from '../../components/BookList'
 
 
-const Book = ({book, isBookAdded}) => {
-    const useStyles = makeStyles({
-        bookCover: {
-            width: '80%',
-            height: '400px',
-            margin: 'auto',   
+const useStyles = makeStyles({
+    imageContainer: {
+        width: '100%'
+    },
+    bookCover: {
+        width: '80%',
+        maxHeight: '500px',
+        maxWidth: '450px',
+        overflow: 'hidden',
+        margin: 'auto',   
 
-            "& img": {
-                maxWidth: '100%',
-                maxHeight: '100%',
-                width: '100%',
-            }
-        },
-        bookActionArea: {
-            display: 'flex',
-            justifyContent: 'space-between',
-        },
-        containedPrimary: {
-            display: 'block',
-            backgroundColor: theme.color.primary,
-            margin: 'auto',
-            minWidth: '280px',
-        }, 
-    });
+        "& img": {
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: '100%',
+        }
+    },
+    bookActionArea: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    containedPrimary: {
+        display: 'block',
+        backgroundColor: theme.color.primary,
+        margin: 'auto',
+        minWidth: '280px',
+    }, 
+});
 
+const Book = ({book, booksFromAuthor, isBookAdded, authors, fetchBooks}) => {
     const imageLink = book?.volumeInfo?.imageLinks?.thumbnail || defaultCover;
-    const classes = useStyles();
     
+    useEffect(() => {
+        const singleAuthor = Array.isArray(authors) ? authors[0] : authors;
+        fetchBooks(singleAuthor)
+    },[])
+
+    const classes = useStyles();
     return (
        <Layout>
             <Grid container justify='center'>
                 {/* <h1>Book Details</h1> */}
-                <Grid item xm={12} md={4}>
+                <Grid item xm={12} md={4} className={classes.imageContainer}>
                     <div className={classes.bookCover}>
                         <img 
                             src={imageLink} 
@@ -59,8 +73,18 @@ const Book = ({book, isBookAdded}) => {
                     </div>
                 </Grid>
             </Grid>
+            <h3>Other Books from this author</h3>
+            {booksFromAuthor && <BookList books={booksFromAuthor?.slice(0,4)} />}
        </Layout>
     )
+}
+
+const mapPropsToState = (state) => ({
+    booksFromAuthor : state.books.books.items
+})
+
+const mapActionToProps = {
+    fetchBooks
 }
 
 Book.getInitialProps = async ({query}) => {
@@ -78,7 +102,8 @@ Book.getInitialProps = async ({query}) => {
                     }
                     return {
                         book, 
-                        isBookAdded
+                        isBookAdded,
+                        authors: query.authors
                     }
                 })
                 .catch(error => console.log(error))
@@ -88,5 +113,5 @@ Book.getInitialProps = async ({query}) => {
             .catch(error => console.log(error)); 
 }
 
-export default Book;
+export default connect(mapPropsToState, mapActionToProps)(Book);
 

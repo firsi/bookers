@@ -17,7 +17,7 @@ const useStyles = makeStyles(mtheme => ({
     }
 }))
 
-const Login = () => {
+const LoginSignup = () => {
     const classes = useStyles();
 return (
     <Layout>
@@ -43,4 +43,4 @@ return (
 )
 }
 
-export default Login;
+export default LoginSignup;

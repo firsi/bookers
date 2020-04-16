@@ -15,7 +15,7 @@ const ImageCardList = ({books}) => {
                         imageUrl={book?.volumeInfo?.imageLinks?.thumbnail}
                         imageAlt={book?.volumeInfo?.title}
                         title={book?.volumeInfo?.title}
-                        authors={book?.volumeInfo?.authors.join(', ')}
+                        authors={book?.volumeInfo?.authors?.join(', ')}
                         handleClick = {() => handleClick(book.id)}
                     />
                 )

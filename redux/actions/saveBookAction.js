@@ -8,7 +8,10 @@ import { SAVE_BOOK_BEGIN,
         FETCH_SAVED_BOOK_FAILURE,
         UPDATE_BOOK_STATUS_BEGIN,
         UPDATE_BOOK_STATUS_SUCCESS,
-        UPDATE_BOOK_STATUS_FAILURE
+        UPDATE_BOOK_STATUS_FAILURE,
+        FETCH_READING_NOW_BOOKS_BEGIN,
+        FETCH_READING_NOW_BOOKS_SUCCESS,
+        FETCH_READING_NOW_BOOKS_FAILURE
     } from '../types';
 import { defaultCover, NOT_STARTED, READING_NOW, FINISHED } from '../../util/constants';
 
@@ -28,7 +31,8 @@ export const saveBook = (book, status) => dispatch => {
                 coverUrl: book.volumeInfo.imageLinks.smallThumbnail || defaultCover,
                 status: status,
                 addedAt: new Date(),
-                ...statusDates
+                ...statusDates,
+                userId: window.localStorage.getItem('userId')
             })
             .then(() => {
                 dispatch(saveBookSUCCESS());
@@ -89,6 +93,7 @@ export const fetchSavedBooks = () => dispatch => {
     };
 
     db.collection('reading_list')
+      .where('userId', '==', window.localStorage.getItem('userId'))
       .orderBy('addedAt', 'desc')
       .get()
       .then(snapshot => {
@@ -195,5 +200,48 @@ const setStatusDate = (status) => {
             return{
                 finishedAt: new Date(),
             };
+    }
+}
+
+//Fetch Reading now Books
+// export const fetchReadingNowBooks = () => dispatch => {
+//     dispatch(fetchReadingNowBooksBegin);
+//     db.collection('reading_list')
+//             .where('userId', '==', window.localStorage.getItem('userId'))
+//             .where('status', '==', 'Reading now')
+//             .limit(4)
+//             .get()
+//             .then(data => {
+//                 let readingNowBooks = [];
+//                 data.forEach(doc => {
+//                     readingNowBooks.push(doc.data())
+//                 })
+                
+//                 dispatch(fetchReadingNowBooksSuccess(readingNowBooks));
+                
+//             })
+//             .catch(error => {
+//                 console.log(error)
+//                 dispatch(fetchReadingNowBooksFailure(error))
+//             });
+// }
+
+const fetchReadingNowBooksBegin = () => {
+    return {
+        type: FETCH_READING_NOW_BOOKS_BEGIN
+    }
+}
+
+const fetchReadingNowBooksSuccess = (readingNowBooks) => {
+    return {
+        type: FETCH_READING_NOW_BOOKS_SUCCESS,
+        payload: {readingNowBooks}
+    }
+}
+
+const fetchReadingNowBooksFailure = (error) => {
+    return {
+        type: FETCH_READING_NOW_BOOKS_FAILURE,
+        payload: {error}
     }
 }

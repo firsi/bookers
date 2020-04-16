@@ -9,6 +9,7 @@ import BookDataTable from '../components/BookDataTable';
 
 import { fetchSavedBooks } from '../redux/actions/saveBookAction';
 import { theme } from '../theme/theme';
+import { NoData } from '../components/NoData';
 
 const useStyles = makeStyles({
     summupContainer: {
@@ -71,26 +72,32 @@ const MyBooks = ({fetchSavedBooks, books, booksCount}) =>  {
    }
 
    const classes = useStyles();
+   
     return (
         <Layout>
-            <div className={classes.summupContainer}>
-                <InfoCard title={'Books Read'} content={booksCount.read} inverse={true}/>
-                <InfoCard title={'Books Started'} content={booksCount.reading} inverse={true}/>
-                <InfoCard title={'Books To Read'} content={booksCount.toRead} inverse={true}/>
-            </div>
-            <BookDataTable data={activeBooks} />
-            <Pagination
-                activePage={activePage}
-                itemsCountPerPage={itemsCountPerPage}
-                totalItemsCount={books?.length}
-                pageRangeDisplayed={5}
-                onChange={handlePage}
-                innerClass={classes.innerClass}
-                itemClass={classes.itemClass}
-                activeClass={classes.activeClass}
-                activeLinkClass={classes.activeLinkClass}
-                disabledClass={classes.disabledClass}
-            />
+            {
+                books.length == 0 ? <NoData />
+                : <>
+                    <div className={classes.summupContainer}>
+                    <InfoCard title={'Books Read'} content={booksCount.read} inverse={true}/>
+                    <InfoCard title={'Books Started'} content={booksCount.reading} inverse={true}/>
+                    <InfoCard title={'Books To Read'} content={booksCount.toRead} inverse={true}/>
+                    </div>
+                    <BookDataTable data={activeBooks} />
+                    <Pagination
+                        activePage={activePage}
+                        itemsCountPerPage={itemsCountPerPage}
+                        totalItemsCount={books?.length}
+                        pageRangeDisplayed={5}
+                        onChange={handlePage}
+                        innerClass={classes.innerClass}
+                        itemClass={classes.itemClass}
+                        activeClass={classes.activeClass}
+                        activeLinkClass={classes.activeLinkClass}
+                        disabledClass={classes.disabledClass}
+                    />
+                </>
+            }
         </Layout>
     )
 }

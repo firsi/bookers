@@ -18,7 +18,8 @@ const BookDescription = ({book}) => {
             },
 
             "& .author": {
-                fontWeight: 700
+                fontWeight: 700,
+                fontSize: '0.9em'
             }
         },
         
@@ -28,7 +29,7 @@ const BookDescription = ({book}) => {
     return (
         <div className={classes.description}>
             <h2>{book.volumeInfo.title}</h2>
-            <div className="author"><span>{book.volumeInfo.authors}</span></div>
+            <div className="author"><span>{book?.volumeInfo?.authors.join(', ')}</span></div>
             <p>{book.volumeInfo.description}</p>
             
         </div>
