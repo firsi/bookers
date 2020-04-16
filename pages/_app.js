@@ -13,21 +13,21 @@ class MyApp extends App {
 
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
-        auth.onAuthStateChanged(user => {
-            if(user){ 
-                if(ctx.pathname == "/login_signup") {
-                    //shouldn't show the login page is we are already logged in
-                    console.log('user is connected')
-                     redirectTo('/', { res: ctx.res, status: 301 });  }
+        // auth.onAuthStateChanged(user => {
+        //     if(user){ 
+        //         if(ctx.pathname == "/login_signup") {
+        //             //shouldn't show the login page is we are already logged in
+        //             console.log('user is connected')
+        //              redirectTo('/', { res: ctx.res, status: 301 });  }
                   
-            }
-            else{
-                if(ctx.pathname == "/login_signup" || ctx.pathname == "/") return;
-                //if we are on any other page, redirect to the login page
-                else redirectTo('/login_signup', { res: ctx.res, status: 301 })
-                console.log('he is not')
-            }
-        })
+        //     }
+        //     else{
+        //         if(ctx.pathname == "/login_signup" || ctx.pathname == "/") return;
+        //         //if we are on any other page, redirect to the login page
+        //         else redirectTo('/login_signup', { res: ctx.res, status: 301 })
+        //         console.log('he is not')
+        //     }
+        // })
 
         
         
